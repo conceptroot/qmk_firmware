@@ -79,7 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_Q,   			KC_W,    KC_E,    KC_R,    		  KC_T,               KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,
 		KC_A,    			KC_S,    KC_D,    KC_F,  		  KC_G,               KC_H,     KC_J,    KC_K,    KC_L,    KC_SCLN,
 		KC_Z,      			KC_X,    KC_C,    KC_V,    		  KC_B,               KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-		                             LT(_NUM_MEDIA, KC_ESC), MEH_T(KC_SPC),	      LT(_NAVIGATION, KC_BSPC),  LT(_PUNCTUATION, KC_ENT)
+		                             // LT(_NUM_MEDIA, KC_ESC), MEH_T(KC_SPC),	      LT(_NAVIGATION, KC_BSPC),  LT(_PUNCTUATION, KC_ENT)
+		                             MO(_NUM_MEDIA), MEH_T(KC_SPC),	      LT(_NAVIGATION, KC_BSPC),  MO(_PUNCTUATION)
   ),
 
     // правый слой - символы
@@ -124,6 +125,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // combos
 enum ferris_combos {
+	// Enter
+	ENTER,
+	ESCAPE,
+
 	// Переключение языка
 	MCOMA_QWERTY,
 	CV_QWERTY,
@@ -133,7 +138,7 @@ enum ferris_combos {
 	// Контрол ц, котрол в и контрол икс
 	QWERTY_COPY,
 	QWERTY_PASTE,
-	CUT,
+	// CUT,
 
 	// Навигация по окнам в макоси
 	QWERTY_CTRL_RIGHT,
@@ -155,13 +160,17 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM mcoma_combo[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM cv_combo[] = {KC_C, KC_V, COMBO_END};
 
+// Enter
+const uint16_t PROGMEM enter_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM escape_combo[] = {KC_X, KC_C, COMBO_END};
+
 // Переход из навигацион слоя в кврети или колемак
 const uint16_t PROGMEM acl2acl1acl0_combo[] = {KC_ACL2, KC_ACL1, COMBO_END};
 
 // Контрол ц, котрол в и контрол икс
 const uint16_t PROGMEM qwerty_copy_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qwerty_paste_combo[] = {KC_Z, KC_C, KC_V, COMBO_END};
-const uint16_t PROGMEM cut_combo[] = {KC_X, KC_C, COMBO_END};
+//вместо этого будет ESC. const uint16_t PROGMEM cut_combo[] = {KC_X, KC_C, COMBO_END};
 
 // Навигация по окнам в макоси
 const uint16_t PROGMEM qwerty_ctrl_right[] = {KC_E, KC_R, COMBO_END};
@@ -176,6 +185,11 @@ const uint16_t PROGMEM game_off[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM game_on[] = {KC_U, KC_I, KC_O, KC_P, COMBO_END};
 
 combo_t key_combos[] = {
+	// Enter и Esc
+	[ENTER] = COMBO(enter_combo, KC_ENTER),
+	[ESCAPE] = COMBO(escape_combo, KC_ESCAPE),
+
+
 	// Переключение языка
 	[MCOMA_QWERTY] = COMBO(mcoma_combo, GO_RUSSIAN),
 	[CV_QWERTY] = COMBO(cv_combo, GO_ENGLISH),
@@ -186,7 +200,7 @@ combo_t key_combos[] = {
 	// Контрол ц, котрол в и контрол икс
 	[QWERTY_COPY] = COMBO(qwerty_copy_combo, LGUI(KC_C)),
 	[QWERTY_PASTE] = COMBO(qwerty_paste_combo, LGUI(KC_V)),
-	[CUT] = COMBO(cut_combo, LGUI(KC_X)),
+	// [CUT] = COMBO(cut_combo, LGUI(KC_X)),
 
 	// Навигация по окнам в макоси
 	[QWERTY_CTRL_RIGHT] = COMBO(qwerty_ctrl_right, LCTL(KC_RGHT)),
